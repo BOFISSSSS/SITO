@@ -476,8 +476,11 @@ body[data-view="work"]:has(#work.has-wheel){background:var(--paper)!important}
 .wheel-thumb{background:#e5e1d9!important}
 
 /* foto della ruota: bianco e nero mentre scorri, a colori quando ti fermi (come su computer) */
-.wheel-thumb img{filter:none;transition:opacity .35s ease,transform .6s cubic-bezier(.2,.8,.2,1),filter .45s ease!important}
+.wheel-thumb img{filter:none;transition:opacity .35s ease,transform .6s cubic-bezier(.2,.8,.2,1),filter .15s ease!important}
 .wheel.moving .wheel-thumb img{filter:grayscale(1) contrast(1.05)}
+
+/* colore più rapido anche su computer */
+.works-grid .tile-media img,.works-grid .tile-media video{transition:filter .18s ease!important}
 </style>
 
 <div class="portfolio">
@@ -759,7 +762,7 @@ body[data-view="work"]:has(#work.has-wheel){background:var(--paper)!important}
     }
     render();
     const idle=!drag&&target!==null&&pos===target;
-    wheel.classList.toggle('moving',!idle);
+    wheel.classList.toggle('moving',!!drag||target===null||Math.abs(target-pos)>0.12);
     if(idle){raf=0;last=0;return;}
     raf=requestAnimationFrame(loop);
   }
