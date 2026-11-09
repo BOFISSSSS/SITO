@@ -230,9 +230,11 @@ body[data-view="home"] .header .nav,body[data-view="home"] .header .status,body[
 body[data-view="work"]:has(#work.has-wheel){background:var(--ink)}
 .wheel-item{position:absolute;left:0;top:0;white-space:nowrap;font:500 var(--wfs,28px)/1 var(--sans);text-transform:uppercase;letter-spacing:-.01em;transform-origin:0 50%;will-change:transform,opacity;color:var(--paper);cursor:pointer}
 .wheel-dot{position:absolute;width:var(--wdot,22px);height:var(--wdot,22px);border-radius:50%;background:#e34345;transform:translate(-50%,-50%);pointer-events:none}
-.wheel-thumb{position:absolute;left:var(--pad);width:var(--wtw,72px);aspect-ratio:3/4;transform:translateY(-50%);overflow:hidden;background:#26261f;cursor:pointer}
+.wheel-thumb{position:absolute;left:auto;right:var(--pad);z-index:0;width:var(--wtw,72px);aspect-ratio:3/4;transform:translateY(-50%);overflow:hidden;background:#26261f;cursor:pointer}
 .wheel-thumb img,.wheel-thumb video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity .35s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
 .wheel-thumb .on{opacity:1;transform:none}
+.wheel-item{z-index:1}
+.wheel-sq{position:absolute;width:var(--wsq,14px);height:var(--wsq,14px);background:#e34345;pointer-events:none;z-index:1;will-change:transform}
 .wheel-thumb.missing::after{display:none}
 .wheel-cap{position:absolute;left:var(--pad);right:var(--pad);bottom:calc(26px + env(safe-area-inset-bottom,0px));display:flex;justify-content:space-between;align-items:flex-end;gap:18px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,243,238,.55)}
 .wheel-cap .wc-cat{max-width:26ch;line-height:1.6}
@@ -689,6 +691,7 @@ img.broken,video.broken{visibility:hidden}
   const N=src.length; if(!N) return;
   const wheel=document.createElement('div'); wheel.className='wheel'; wheel.setAttribute('aria-label','Projects');
   const thumb=document.createElement('a'); thumb.className='wheel-thumb'; thumb.setAttribute('aria-hidden','true'); thumb.tabIndex=-1; wheel.appendChild(thumb);
+  const sq=document.createElement('div'); sq.className='wheel-sq'; wheel.appendChild(sq);
   const thumbs=src.map(t=>{const m=t.querySelector('.tile-media img,.tile-media video'); const k=document.createElement('img'); k.alt=''; k.loading='eager'; k.decoding='async'; k.src=m?(m.currentSrc||m.getAttribute('src')||(m.querySelector('source')||{}).src||''):''; thumb.appendChild(k); return k;});
   const hint=document.createElement('div'); hint.className='wheel-hint'; hint.innerHTML='<span data-en="Swipe to browse" data-it="Scorri per esplorare">Swipe to browse</span>'; wheel.appendChild(hint);
   const items=src.map((t,i)=>{const a=document.createElement('a');a.className='wheel-item';a.href=t.getAttribute('href');a.textContent=t.querySelector('h2').textContent;a.dataset.i=i;wheel.appendChild(a);return a;});
@@ -703,7 +706,7 @@ img.broken,video.broken{visibility:hidden}
   const mod=(a,n)=>((a%n)+n)%n;
   function measure(){
     W=wheel.clientWidth; H=wheel.clientHeight; if(!W||!H){W=0;return;}
-    tx=W*0.27;
+    tx=W*0.22;
     let base=Math.min(W*0.085,40); wheel.style.setProperty('--wfs',base+'px');
     const widest=Math.max(...items.map(a=>a.scrollWidth));
     fs=Math.min(base, base*(W-tx-16)/widest);
@@ -711,9 +714,10 @@ img.broken,video.broken{visibility:hidden}
     wheel.style.setProperty('--wdot',Math.max(16,fs*0.8).toFixed(1)+'px');
     itemH=fs*1.42; R=Math.max(W*1.25,itemH*7);
     cy=H*0.5; cx=tx-R;
-    const tw=Math.max(48,Math.min(tx-(parseFloat(getComputedStyle(thumb).left)||20)-16,110)); wheel.style.setProperty('--wtw',tw.toFixed(1)+'px'); thumb.style.top=cy+'px';
+    const pd=parseFloat(getComputedStyle(thumb).right)||20; const tw=Math.max(90,Math.min(W*0.36,180)); wheel.style.setProperty('--wtw',tw.toFixed(1)+'px'); thumb.style.top=cy+'px';
+    const sqs=Math.max(12,Math.round(fs*0.5)); wheel.style.setProperty('--wsq',sqs+'px'); sq.style.left=(pd+(tx-pd)/2-sqs/2).toFixed(1)+'px'; sq.style.top=(cy-sqs/2).toFixed(1)+'px';
   }
-  function render(){ if(!W) return;
+  function render(){ if(!W) return; sq.style.transform='rotate('+(pos*90).toFixed(2)+'deg)';
     items.forEach((a,i)=>{
       let d=mod(i-pos+N/2,N)-N/2;
       const th=d*itemH/R;
