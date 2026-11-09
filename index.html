@@ -719,8 +719,8 @@ img.broken,video.broken{visibility:hidden}
     wheel.style.setProperty('--wdot',Math.max(16,fs*0.8).toFixed(1)+'px');
     itemH=fs*1.42; R=Math.max(W*1.25,itemH*7);
     cy=H*0.5; cx=tx-R;
-    const pd=parseFloat(getComputedStyle(thumb).right)||20; const tw=Math.max(90,Math.min(W*0.36,180)); wheel.style.setProperty('--wtw',tw.toFixed(1)+'px'); thumb.style.top=cy+'px';
-    const sqs=Math.max(12,Math.round(fs*0.5)); wheel.style.setProperty('--wsq',sqs+'px'); sq.style.left=(pd+(tx-pd)/2-sqs/2).toFixed(1)+'px'; sq.style.top=(cy-sqs/2).toFixed(1)+'px';
+    const pd=parseFloat(getComputedStyle(thumb).right)||20; const tw=Math.max(80,Math.min(W*0.31,155)); wheel.style.setProperty('--wtw',tw.toFixed(1)+'px'); thumb.style.top=cy+'px';
+    const sqs=Math.max(9,Math.round(fs*0.5)-3); wheel.style.setProperty('--wsq',sqs+'px'); sq.style.left=(pd+(tx-pd)/2-sqs/2).toFixed(1)+'px'; sq.style.top=(cy-sqs/2).toFixed(1)+'px';
   }
   function render(){ if(!W) return; sq.style.transform='rotate('+(pos*90).toFixed(2)+'deg)';
     items.forEach((a,i)=>{
