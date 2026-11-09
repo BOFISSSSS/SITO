@@ -466,15 +466,6 @@ img.broken,video.broken{visibility:hidden}
 .case-next .all::before{content:"";width:6.5px;height:6.5px;background:#e34345;flex:none;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
 .case-next:hover .all::before,.case-next .all:hover::before{transform:rotate(90deg)}
 
-/* ===== Ruota mobile: stesso fondo chiaro della versione computer ===== */
-#work.has-wheel .wheel{background:var(--paper)!important;color:var(--ink)!important}
-body[data-view="work"]:has(#work.has-wheel){background:var(--paper)!important}
-.wheel-item{color:var(--ink)!important}
-.wheel-hint{color:var(--muted)!important}
-.wheel-cap{color:var(--muted)!important}
-.wheel-cap a{color:var(--ink)!important;border-bottom-color:rgba(17,17,15,.35)!important}
-.wheel-thumb{background:#e5e1d9!important}
-
 /* foto della ruota: bianco e nero mentre scorri, a colori quando ti fermi (come su computer) */
 .wheel-thumb img{filter:none;transition:opacity .35s ease,transform .6s cubic-bezier(.2,.8,.2,1),filter .15s ease!important}
 .wheel.moving .wheel-thumb img{filter:grayscale(1) contrast(1.05)}
