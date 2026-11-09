@@ -474,6 +474,10 @@ body[data-view="work"]:has(#work.has-wheel){background:var(--paper)!important}
 .wheel-cap{color:var(--muted)!important}
 .wheel-cap a{color:var(--ink)!important;border-bottom-color:rgba(17,17,15,.35)!important}
 .wheel-thumb{background:#e5e1d9!important}
+
+/* foto della ruota: bianco e nero mentre scorri, a colori quando ti fermi (come su computer) */
+.wheel-thumb img{filter:none;transition:opacity .35s ease,transform .6s cubic-bezier(.2,.8,.2,1),filter .45s ease!important}
+.wheel.moving .wheel-thumb img{filter:grayscale(1) contrast(1.05)}
 </style>
 
 <div class="portfolio">
@@ -721,9 +725,9 @@ body[data-view="work"]:has(#work.has-wheel){background:var(--paper)!important}
   function measure(){
     W=wheel.clientWidth; H=wheel.clientHeight; if(!W||!H){W=0;return;}
     tx=W*0.22;
-    let base=Math.min(W*0.085,40); wheel.style.setProperty('--wfs',base+'px');
+    let base=Math.min(W*0.066,30); wheel.style.setProperty('--wfs',base+'px');
     const widest=Math.max(...items.map(a=>a.scrollWidth));
-    fs=Math.min(base, base*(W-tx-16)/widest);
+    fs=Math.min(base, base*(W-tx-16)/widest)*0.78;
     wheel.style.setProperty('--wfs',fs.toFixed(2)+'px');
     wheel.style.setProperty('--wdot',Math.max(16,fs*0.8).toFixed(1)+'px');
     itemH=fs*1.42; R=Math.max(W*1.25,itemH*7);
@@ -754,6 +758,7 @@ body[data-view="work"]:has(#work.has-wheel){background:var(--paper)!important}
     }
     render();
     const idle=!drag&&target!==null&&pos===target;
+    wheel.classList.toggle('moving',!idle);
     if(idle){raf=0;last=0;return;}
     raf=requestAnimationFrame(loop);
   }
