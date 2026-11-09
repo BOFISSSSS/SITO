@@ -462,8 +462,8 @@ img.broken,video.broken{visibility:hidden}
 
 
 /* quadratino rosso accanto a "Progetto successivo" */
-.case-next .all{display:inline-flex!important;align-items:center;gap:10px}
-.case-next .all::before{content:"";width:9px;height:9px;background:#e34345;flex:none;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.case-next .all{display:flex!important;width:max-content;align-items:center;gap:10px}
+.case-next .all::before{content:"";width:6.5px;height:6.5px;background:#e34345;flex:none;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
 .case-next:hover .all::before,.case-next .all:hover::before{transform:rotate(90deg)}
 </style>
 
