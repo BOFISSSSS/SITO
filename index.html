@@ -460,6 +460,11 @@ img.broken,video.broken{visibility:hidden}
 .ed-head h2,.case-next a.next-title{font-family:var(--sans)!important;font-weight:300!important;text-transform:uppercase;font-size:clamp(36px,5vw,80px)!important;line-height:.95!important;letter-spacing:-.04em!important}
 @media(max-width:820px){.ed-head h2,.case-next a.next-title{font-size:clamp(30px,9.5vw,46px)!important}}
 
+
+/* quadratino rosso accanto a "Progetto successivo" */
+.case-next .all{display:inline-flex!important;align-items:center;gap:10px}
+.case-next .all::before{content:"";width:9px;height:9px;background:#e34345;flex:none;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.case-next:hover .all::before,.case-next .all:hover::before{transform:rotate(90deg)}
 </style>
 
 <div class="portfolio">
