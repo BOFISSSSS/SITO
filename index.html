@@ -1114,10 +1114,10 @@ body[data-view="about"]:has(#about.idx){background:#fff}
   tg.innerHTML=`<button type="button" class="hg" aria-label="Cambia impaginazione / Switch layout" title="Layout"><img src="assets/hourglass.png" alt="" width="28" height="34"></button>`;
   document.body.appendChild(tg);
   let cur='classic';
-  function set(l){ cur=l; about.classList.toggle('idx',l==='index'); tg.querySelector('button').setAttribute('aria-pressed',String(l==='index')); try{localStorage.setItem('about-layout',l)}catch(e){} }
+  function set(l){ cur=l; about.classList.toggle('idx',l==='index'); tg.querySelector('button').setAttribute('aria-pressed',String(l==='index')); }
   tg.addEventListener('click',()=>{ const b=tg.querySelector('button'); b.classList.remove('flip'); void b.offsetWidth; b.classList.add('flip'); set(cur==='index'?'classic':'index'); });
-  let saved='classic'; try{saved=localStorage.getItem('about-layout')||'classic'}catch(e){}
-  set(saved);
+  set('classic');
+  window.addEventListener('hashchange',()=>{ if(location.hash==='#about') set('classic'); });
 })();
 </script>
 <script>
