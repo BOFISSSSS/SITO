@@ -525,6 +525,10 @@ img.broken,video.broken{visibility:hidden}
 /* spazio fisso tra sottotitolo e immagine d'apertura, in ogni progetto */
 .case.ed>.ed-hero.ed-hero{margin-top:clamp(40px,5vw,72px)!important}
 @media(max-width:820px){.case.ed>.ed-hero.ed-hero{margin-top:30px!important}}
+
+/* Bold Brew: le due animazioni affiancate */
+.case.ed>.grid-2.gif-pair{grid-template-columns:1fr 1fr!important}
+.case.ed>.grid-2.gif-pair video{width:100%!important;height:auto!important;aspect-ratio:auto!important;object-fit:contain!important;display:block;background:#fff}
 </style>
 
 <div class="portfolio">
@@ -683,8 +687,7 @@ img.broken,video.broken{visibility:hidden}
 <figure class="full"><img decoding="async" alt="Bold Brew Coffee 08" loading="lazy" src="assets/boldbrew-08.webp"/></figure>
 <figure class="full"><img data-intera="1" decoding="async" alt="Bold Brew Coffee 07" loading="lazy" src="assets/boldbrew-07.webp"/></figure>
 <figure class="full"><img data-intera="1" decoding="async" alt="Bold Brew Coffee 06" loading="lazy" src="assets/boldbrew-06.webp"/></figure>
-<figure class="full gif-panel"><video data-intera="1" class="lazyv" loop="" muted="" playsinline="" preload="none"><source src="assets/boldbrew-05.webm" type="video/webm"/><source src="assets/boldbrew-05.mp4" type="video/mp4"/></video></figure>
-<figure class="full gif-panel"><video data-intera="1" class="lazyv" loop="" muted="" playsinline="" preload="none"><source src="assets/boldbrew-03.webm" type="video/webm"/><source src="assets/boldbrew-03.mp4" type="video/mp4"/></video></figure>
+<div class="grid-2 gif-pair"><video data-intera="1" class="lazyv" loop="" muted="" playsinline="" preload="none"><source src="assets/boldbrew-05.webm" type="video/webm"/><source src="assets/boldbrew-05.mp4" type="video/mp4"/></video><video data-intera="1" class="lazyv" loop="" muted="" playsinline="" preload="none"><source src="assets/boldbrew-03.webm" type="video/webm"/><source src="assets/boldbrew-03.mp4" type="video/mp4"/></video></div>
 <figure class="full"><img data-intera="1" decoding="async" alt="Bold Brew Coffee 02" loading="lazy" src="assets/boldbrew-02.webp"/></figure>
 <figure class="full"><img decoding="async" alt="Bold Brew Coffee 01" loading="lazy" src="assets/boldbrew-01.webp"/></figure>
 <figure class="full"><img data-intera="1" decoding="async" alt="Bold Brew Coffee 04" loading="lazy" src="assets/boldbrew-04.webp"/></figure>
