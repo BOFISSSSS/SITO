@@ -613,6 +613,69 @@ body[data-view="about"]:has(#about.idx){background:#fff}
 .ab-box.ab-info:hover h4::after{background-image:radial-gradient(#fff 1px,transparent 1.2px)}
 .ab-prev{width:auto!important}
 .ab-prev canvas,.ab-prev img{width:180px!important;height:240px!important;object-fit:cover}
+
+/* ===== About Indice v2: impaginazione "test page" su fondo bianco ===== */
+.ab-index.v2{display:none;position:relative;grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:auto auto auto auto auto;column-gap:18px;row-gap:clamp(22px,3.2vw,46px);
+  padding:96px 18px 70px;min-height:100vh;background:#fff;color:#0d0d0d;font-family:"VT323",ui-monospace,monospace;text-transform:uppercase;font-size:clamp(19px,1.45vw,25px);line-height:1}
+#about.idx>.ab-index.v2{display:grid}
+.ab-index.v2 p{margin:0 0 .9em}
+.ab-index.v2 .dots{display:block;letter-spacing:.05em;line-height:1.1;white-space:nowrap;overflow:hidden}
+.ab-index.v2 .tl{grid-column:1 / span 4;grid-row:1}
+.ab-index.v2 .tc{grid-column:6 / span 1;grid-row:1;align-self:center}
+.ab-index.v2 .tm{grid-column:8 / span 3;grid-row:1;align-self:center}
+.ab-index.v2 .tr{grid-column:11 / span 2;grid-row:1;text-align:right}
+.ab-index.v2 .tr .dots{text-align:right}
+.ab-index.v2 .ml{grid-column:1 / span 2;grid-row:2;align-self:center}
+.ab-index.v2 .ml .ind{padding-left:60%}
+.ab-index.v2 .big{grid-column:3 / span 7;grid-row:2;align-self:center;margin:0;font:400 clamp(56px,9vw,170px)/.85 "VT323",ui-monospace,monospace;letter-spacing:.02em;white-space:nowrap;text-align:center}
+.ab-index.v2 .mr{grid-column:10 / span 3;grid-row:2;align-self:center;text-align:right}
+.ab-index.v2 .mr .lead{border-bottom:2px dashed #0d0d0d;padding-bottom:4px}
+.ab-index.v2 .mr a{color:inherit;text-decoration:none}
+.ab-index.v2 .mr a:hover{background:#0d0d0d;color:#fff}
+.ab-index.v2 .nums{grid-column:2 / span 5;grid-row:3;display:flex;gap:clamp(30px,5vw,80px)}
+.ab-index.v2 .bl{grid-column:1 / span 5;grid-row:4;border:0}
+.ab-index.v2 .bl h4{border:0;padding:0 0 10px;font-size:inherit}
+.ab-index.v2 .bl h4::after{height:8px}
+.ab-index.v2 .bl .bd{padding:0;font-size:inherit;line-height:1.05}
+.ab-index.v2 .ab-info:hover{background:#0d0d0d;color:#fff;outline:10px solid #0d0d0d}
+.ab-index.v2 .br{grid-column:9 / span 4;grid-row:3 / span 2;text-align:right}
+.ab-index.v2 .br .dots{text-align:right}
+.ab-index.v2 .bars{height:60px;margin-top:16px;margin-left:auto;width:100%;background:repeating-linear-gradient(90deg,#0d0d0d 0 2px,transparent 2px 4px)}
+.ab-index.v2 .foot{grid-column:1 / -1;grid-row:5;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:18px;align-items:end}
+.ab-index.v2 .foot p:nth-child(1){grid-column:1 / span 3}
+.ab-index.v2 .foot p:nth-child(2){grid-column:6}
+.ab-index.v2 .foot p:nth-child(3){grid-column:8 / span 2}
+.ab-index.v2 .foot p:nth-child(4){grid-column:10}
+.ab-index.v2 .foot .r{grid-column:12;text-align:right}
+.ab-index.v2 .ab-list{margin:0 0 .9em}
+.ab-index.v2 .ab-row{display:grid;grid-template-columns:auto 1fr auto;gap:10px;padding:1px 0;font-size:inherit;line-height:1.05;border:0;color:inherit}
+.ab-index.v2 .ab-row .y{text-align:right}
+.ab-index.v2 .ab-row:hover{background:#0d0d0d;color:#fff}
+.ab-index.v2 .small{font-size:.8em;opacity:.8}
+.ab-index.v2 .load{display:inline-block;animation:ld 1.4s steps(6) infinite;overflow:hidden;width:6ch;vertical-align:bottom}
+@keyframes ld{from{width:0}to{width:6ch}}
+@media(max-width:1100px){
+  .ab-index.v2 .big{grid-column:1 / -1;grid-row:2}
+  .ab-index.v2 .ml{display:none}
+  .ab-index.v2 .mr{grid-column:7 / -1;grid-row:3}
+  .ab-index.v2 .nums{grid-column:1 / span 6;grid-row:3;align-self:end}
+}
+@media(max-width:820px){
+  .ab-index.v2{grid-template-columns:1fr;padding:80px 14px 90px;font-size:20px;row-gap:28px}
+  .ab-index.v2>*{grid-column:1 / -1!important;grid-row:auto!important;text-align:left!important}
+  .ab-index.v2 .tc,.ab-index.v2 .ml,.ab-index.v2 .nums,.ab-index.v2 .tr .dots{display:none}
+  .ab-index.v2 .big{font-size:clamp(44px,15vw,72px);white-space:normal;text-align:left}
+  .ab-index.v2 .br .dots{text-align:left}
+  .ab-index.v2 .foot{display:block}
+  .ab-index.v2 .small{display:none}
+}
+
+.ab-index.v2{overflow:hidden}
+.ab-index.v2 .dots{max-width:100%}
+/* clessidra: in basso al centro, lontana dai testi */
+.ab-toggle{left:50%!important;transform:translateX(-50%)}
+
+@media(max-width:820px){.ab-index.v2 .foot p:nth-child(2),.ab-index.v2 .foot p:nth-child(3),.ab-index.v2 .foot p:nth-child(4){display:none}}
 </style>
 
 <div class="portfolio">
@@ -943,29 +1006,52 @@ body[data-view="about"]:has(#about.idx){background:#fff}
   const tiles=[...document.querySelectorAll('.works-grid > .tile:not(.clone)')];
   const L=(en,it)=>`<span data-en="${en}" data-it="${it}">${en}</span>`;
   const esc=t=>t.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
-  const rows=tiles.map(t=>{
+  const rows=tiles.map((t,i)=>{
     const id=t.getAttribute('href').slice(1), c=document.getElementById(id);
-    const sp=t.querySelector('.tile-info [data-en]');
     const yr=c?[...c.querySelectorAll('.ed-meta dd')][1]?.textContent.trim():'';
     const img=t.querySelector('img');
-    return `<a class="ab-row" href="#${id}" data-img="${img?img.getAttribute('src'):''}"><span>${t.querySelector('h2').textContent}</span><span class="sc">${L(esc(sp.dataset.en),esc(sp.dataset.it))}</span><span class="y">${(yr||'').replace('–','-')}</span></a>`;
+    return `<a class="ab-row" href="#${id}" data-img="${img?img.getAttribute('src'):''}"><span class="n">. ${String(i+1).padStart(2,'0')} &gt;</span><span class="nm">${t.querySelector('h2').textContent}</span><span class="y">${(yr||'').replace('–','-')}</span></a>`;
   }).join('');
-  const wrap=document.createElement('div'); wrap.className='ab-index';
-  wrap.innerHTML=`<div class="ab-list"><div class="ab-row head"><span>${L('Client','Cliente')}</span><span class="sc">${L('Scope','Ambiti')}</span><span class="y">${L('Year','Anno')}</span></div>${rows}</div>
-  <aside class="ab-side">
-    <div class="ab-box"><h4>Info</h4><div class="bd">
-      <p>${L('Sofia Bertini is a brand, visual and digital designer based in Milan.','Sofia Bertini è una brand, visual e digital designer con sede a Milano.')}</p>
+  const dots=n=>'<span class="dots">'+'. '.repeat(n)+'</span>';
+  const wrap=document.createElement('div'); wrap.className='ab-index v2';
+  wrap.innerHTML=`
+  <div class="tl">
+    <p>- 0 1<br>.SOFIA BERTINI</p>
+    <div class="ab-list">${rows}</div>
+    <p class="small">(${L('Hover a project to preview it, click to open','Passa su un progetto per vederlo, clicca per aprirlo')})</p>
+  </div>
+  <div class="tc"><p>//</p></div>
+  <div class="tm"><p>(...) ${L('Loading','Caricamento')} <span class="load">......</span></p></div>
+  <div class="tr">
+    <p>&copy; ${L('Designed by Sofia Bertini','Progettato da Sofia Bertini')}<br>&copy; 2026</p>
+    ${dots(7)}${dots(7)}
+    <p>)))))))))<br>:)<br>= 01234</p>
+    <p>5678</p><p>12</p>
+  </div>
+  <div class="ml">${dots(8)}${dots(8)}${dots(8)}${dots(8)}<p>= 01234</p><p class="ind">5678</p></div>
+  <h1 class="big">(SOFIA&nbsp;BERTINI)</h1>
+  <div class="mr">
+    <p class="lead">_ _ _ _ ${L('Write to','Scrivi a')}<br>${L('Sofia','Sofia')}</p>
+    <p class="btns"><a href="mailto:sofiabertini96@gmail.com">( E-MAIL )</a> <a href="https://www.linkedin.com/in/sofiabertini" target="_blank" rel="noreferrer">( LINKEDIN )</a><br><a href="tel:+393914940460">( +39 391 4940460 )</a><br>&lt;&gt; ${L('Milan','Milano')}</p>
+  </div>
+  <div class="nums"><span>10</span><span>11</span><span>12</span><span>13</span></div>
+  <div class="ab-box ab-info bl">
+    <h4>INFO</h4>
+    <div class="bd">
+      <p>${L('Sofia Bertini_ _ _ is a brand, visual_ _ _ and digital designer based in Milan.','Sofia Bertini_ _ _ è una brand, visual_ _ _ e digital designer con sede a Milano.')}</p>
       <p>${L('I design identities, campaigns and digital experiences that turn strategy into clear, memorable visual systems.','Progetto identità, campagne ed esperienze digitali che trasformano la strategia in sistemi visivi chiari e memorabili.')}</p>
-      <p>${L('I translate complex ideas into systems that can live across identity, editorial, digital and physical space.','Traduco idee complesse in sistemi capaci di vivere nell’identità, nell’editoria, nel digitale e nello spazio fisico.')}</p>
-    </div></div>
-    <div class="ab-box"><h4>${L('Expertise','Competenze')}</h4><div class="bd">
-      <p>${L('Brand identity','Brand identity')}<br>${L('Creative direction','Direzione creativa')}<br>${L('Editorial &amp; digital design','Editorial e digital design')}<br>UX/UI design</p>
-    </div></div>
-    <div class="ab-box"><h4>${L('Contact','Contatti')}</h4><div class="bd">
-      <p><a href="mailto:sofiabertini96@gmail.com">sofiabertini96@gmail.com</a><br>+39 391 4940460<br><a href="https://www.linkedin.com/in/sofiabertini" target="_blank" rel="noreferrer">LinkedIn ↗</a></p>
-    </div></div>
-    <div class="ab-foot">${L('All rights reserved.','Tutti i diritti riservati.')}<br>© 2026 Sofia Bertini</div>
-  </aside>`;
+    </div>
+  </div>
+  <div class="br">
+    <p>&copy; 2026</p>${dots(14)}${dots(10)}${dots(7)}${dots(7)}
+    <p>. 01 &gt; ${L('Brand identity','Brand identity')}<br>. 02 &gt; ${L('Creative direction','Direzione creativa')}<br>. 03 &gt; ${L('Editorial design','Editorial design')}<br>. 04 &gt; ${L('Digital design','Digital design')}<br>. 05 &gt; UX/UI</p>
+    <div class="bars" aria-hidden="true"></div>
+  </div>
+  <div class="foot">
+    <p>// <br>- ${L('End of page','Fine pagina')}<br>${L('All rights reserved','Tutti i diritti riservati')}</p>
+    <p>(</p><p>))))))))))</p><p>:)</p>
+    <p class="r">-<br>_<br>.-<br>V1.0</p>
+  </div>`;
   about.appendChild(wrap);
   const prev=document.createElement('div'); prev.className='ab-prev'; wrap.appendChild(prev);
   const cache={};
