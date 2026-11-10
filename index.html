@@ -476,8 +476,8 @@ img.broken,video.broken{visibility:hidden}
 .works-grid .tile-media img,.works-grid .tile-media video{transition:filter .18s ease!important}
 
 /* ===== Immagini dei lavori a schermo intero, senza fondo grigio ===== */
-#project .case-studies{--cpad:var(--pad);--mgap:clamp(22px,1.9vw,30px)}
-@media(max-width:820px){#project .case-studies{--cpad:16px;--mgap:16px}}
+#project .case-studies{--cpad:var(--pad);--mgap:clamp(25px,2.1vw,33px)}
+@media(max-width:820px){#project .case-studies{--cpad:16px;--mgap:19px}}
 .case.ed>.full,.case.ed>.grid-2,.case.ed>.posts-grid,.case.ed>.nesta-ui-grid,.case.ed>.dark-panel,.case.ed>.color-panel,.case.ed>.hero-media:not(.ed-hero){
   margin-left:calc(-1 * var(--cpad))!important;margin-right:calc(-1 * var(--cpad))!important;width:auto!important;
   padding:0!important;background:none!important;max-width:none!important}
@@ -498,6 +498,17 @@ img.broken,video.broken{visibility:hidden}
   .case.ed>.grid-2,.case.ed>.posts-grid,.case.ed>.nesta-ui-grid{align-items:stretch!important}
   .case.ed>.grid-2>img,.case.ed>.posts-grid>img,.case.ed>.nesta-ui-grid>img{height:100%!important;object-fit:cover!important}
 }
+
+/* smartphone: tutte le immagini dei progetti in formato 1350 x 1080 */
+@media(max-width:820px){
+  .case.ed .ed-hero,.case.ed .ed-hero.hero-media,.case.ed .ed-hero.hero-media.nesta-logo{aspect-ratio:1350/1080!important;height:auto!important;overflow:hidden}
+  .case.ed .ed-hero img,.case.ed .ed-hero video{position:static!important;width:100%!important;height:100%!important;object-fit:cover!important}
+  .case.ed .full img,.case.ed .full video,.case.ed .grid-2 img,.case.ed .posts-grid img,.case.ed .nesta-ui-grid img,.case.ed .dark-panel img,.case.ed .color-panel img,.case.ed>.hero-media:not(.ed-hero) img,
+  .case.ed .full.gif-panel video,.case.ed .full.gif-panel img{aspect-ratio:1350/1080!important;width:100%!important;height:auto!important;object-fit:cover!important}
+}
+
+@media(max-width:820px){.case-studies .case-next,.case .outcome,.case .quote{margin-left:calc(-1 * var(--cpad,16px))!important;margin-right:calc(-1 * var(--cpad,16px))!important}}
+#project{overflow-x:clip}
 </style>
 
 <div class="portfolio">
