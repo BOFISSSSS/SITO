@@ -1160,7 +1160,7 @@ document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
   }
   const wrap=u=>{u=((u%L)+L)%L; return u>L/2?u-L:u;};
   function pick(cx,cy){
-    if(mx===null||drag) return -1;
+    if(mx===null||(drag&&moved>6)) return -1;
     const hMax=w1*4/3;
     if(Math.abs(my-cy)>hMax/2+20) return -1;
     // resta sul progetto attuale finché il mouse è sopra la sua immagine (niente scatti)
@@ -1198,7 +1198,7 @@ document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
   grid.addEventListener('pointerleave',()=>{ mx=my=null; });
   grid.addEventListener('wheel',e=>{ if(!running) return; e.preventDefault(); off+=(Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY)*0.6; },{passive:false});
   grid.addEventListener('pointerdown',e=>{ if(!running||e.button!==0) return; drag={x:e.clientX,o:off}; moved=0; });
-  window.addEventListener('pointermove',e=>{ if(!drag) return; const dx=e.clientX-drag.x; moved=Math.max(moved,Math.abs(dx)); off=drag.o-dx; });
+  window.addEventListener('pointermove',e=>{ if(!drag) return; const dx=e.clientX-drag.x; moved=Math.max(moved,Math.abs(dx)); if(moved>6) off=drag.o-dx; });
   window.addEventListener('pointerup',()=>{ drag=null; });
   grid.addEventListener('click',e=>{ if(moved>6){ e.preventDefault(); e.stopPropagation(); moved=0; return; } if(!running) return; const t=hi>=0?tiles[hi]:null; if(t&&!e.target.closest('.tile')){ e.preventDefault(); location.hash=t.getAttribute('href'); } },true);
   grid.addEventListener('dragstart',e=>e.preventDefault());
