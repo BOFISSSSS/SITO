@@ -472,6 +472,23 @@ img.broken,video.broken{visibility:hidden}
 
 /* colore più rapido anche su computer */
 .works-grid .tile-media img,.works-grid .tile-media video{transition:filter .18s ease!important}
+
+/* ===== Immagini dei lavori a schermo intero, senza fondo grigio ===== */
+#project .case-studies{--cpad:var(--pad)}
+@media(max-width:820px){#project .case-studies{--cpad:16px}}
+.case.ed>.full,.case.ed>.grid-2,.case.ed>.posts-grid,.case.ed>.nesta-ui-grid,.case.ed>.dark-panel,.case.ed>.color-panel,.case.ed>.hero-media:not(.ed-hero){
+  margin-left:calc(-1 * var(--cpad))!important;margin-right:calc(-1 * var(--cpad))!important;width:auto!important;
+  padding:0!important;background:none!important;max-width:none!important}
+.case.ed>.grid-2,.case.ed>.posts-grid,.case.ed>.nesta-ui-grid{gap:4px!important;margin-bottom:4px!important;align-items:start}
+.case.ed>.full,.case.ed>.dark-panel,.case.ed>.color-panel,.case.ed>.hero-media:not(.ed-hero){margin-bottom:4px!important}
+.case.ed .full img,.case.ed .full video,.case.ed .grid-2 img,.case.ed .posts-grid img,.case.ed .nesta-ui-grid img,.case.ed .dark-panel img,.case.ed .color-panel img,.case.ed>.hero-media:not(.ed-hero) img{
+  width:100%!important;height:auto!important;max-height:none!important;aspect-ratio:auto!important;object-fit:cover!important;padding:0!important;background:none!important}
+.case.ed .full.gif-panel{display:block!important;padding:0!important;background:none!important}
+.case.ed .full.gif-panel video,.case.ed .full.gif-panel img{max-width:none!important;width:100%!important}
+.case.ed .ed-hero{background:none!important}
+.case.ed .ed-hero.hero-media.nesta-logo,.case.ed .ed-hero.hero-media.nesta-logo img{background:none!important}
+.case.ed .ed-story+*{margin-top:0!important}
+@media(max-width:820px){.case.ed>.grid-2,.case.ed>.posts-grid,.case.ed>.nesta-ui-grid{grid-template-columns:1fr!important}}
 </style>
 
 <div class="portfolio">
