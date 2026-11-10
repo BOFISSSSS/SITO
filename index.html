@@ -529,6 +529,18 @@ img.broken,video.broken{visibility:hidden}
 /* Bold Brew: le due animazioni affiancate */
 .case.ed>.grid-2.gif-pair{grid-template-columns:1fr 1fr!important}
 .case.ed>.grid-2.gif-pair video{width:100%!important;height:auto!important;aspect-ratio:auto!important;object-fit:contain!important;display:block;background:#fff}
+
+/* 35 MM: separatori prima / dopo il rebranding */
+.case.ed>.phase-label{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--grid-gap);align-items:baseline;
+  padding:clamp(28px,3vw,44px) 0 clamp(24px,2.6vw,40px);border-top:1px solid var(--line);margin:clamp(24px,3vw,48px) 0 0}
+.case.ed>.phase-label .ph-no{grid-column:1 / span 3;font-size:11px;letter-spacing:.14em;color:var(--muted)}
+.case.ed>.phase-label>div{grid-column:4 / span 7}
+.case.ed>.phase-label h3{font-family:var(--sans);font-weight:300;text-transform:uppercase;font-size:clamp(22px,2.2vw,34px);line-height:1.05;letter-spacing:-.03em;margin:0}
+.case.ed>.phase-label p{margin:12px 0 0;font-size:15px;line-height:1.55;color:var(--muted);max-width:52ch}
+@media(max-width:820px){.case.ed>.phase-label{display:block;padding:24px 0 22px;margin-top:18px}.case.ed>.phase-label .ph-no{display:block;margin-bottom:10px}.case.ed>.phase-label h3{font-size:22px}}
+
+/* immagini con scritte nelle coppie: mai tagliate, centrate su fondo bianco */
+@media(min-width:821px){.case.ed>.grid-2>img[data-intera],.case.ed>.posts-grid>img[data-intera]{object-fit:contain!important;background:#fff!important}}
 </style>
 
 <div class="portfolio">
@@ -696,8 +708,10 @@ img.broken,video.broken{visibility:hidden}
 <header class="ed-head"><dl class="ed-meta"><div><dt><span data-en="Project" data-it="Progetto">Project</span></dt><dd>09</dd></div><div><dt><span data-en="Year" data-it="Anno">Year</span></dt><dd>2025</dd></div><div class="ed-scope"><dt><span data-en="Scope" data-it="Ambiti">Scope</span></dt><dd>Rebranding · Logo Design · Social Media · Event Materials</dd></div></dl><h2>35 MM Film Festival</h2><p class="ed-sub"><span data-en="Rebranding a young film festival for its second edition." data-it="Il rebranding di un giovane festival di cinema per la sua seconda edizione.">Rebranding a young film festival for its second edition.</span></p></header>
 <figure class="ed-hero hero-media"><img decoding="async" loading="lazy" alt="35 MM Film Festival — new logo" src="assets/35mm-01.webp"/></figure>
 <div class="story ed-story"><span class="label"><span data-en="Overview" data-it="Panoramica">Overview</span></span><div class="story-grid"><p><span data-en="Rebranding a young film festival for its second edition, from literal illustration to a cinematic system." data-it="Il rebranding di un giovane festival di cinema per la seconda edizione: dall’illustrazione letterale a un sistema cinematografico.">Rebranding a young film festival for its second edition, from literal illustration to a cinematic system.</span></p><p class="small"><span data-en="The original logo, a film strip and reel in muted green, was redrawn into a compact, contemporary mark. A new palette of black, warm white, sage, dusty rose and light blue, reel graphics and a strong typographic payoff shape posters, Instagram content, the official selection, the calendar and the wristbands." data-it="Il logo originale, una pellicola e una bobina in un verde spento, è stato ridisegnato in un marchio compatto e contemporaneo. Una nuova palette di nero, bianco caldo, salvia, rosa antico e azzurro, le grafiche delle bobine e un payoff tipografico forte danno forma a poster, contenuti Instagram, selezione ufficiale, calendario e braccialetti.">The original logo, a film strip and reel in muted green, was redrawn into a compact, contemporary mark. A new palette of black, warm white, sage, dusty rose and light blue, reel graphics and a strong typographic payoff shape posters, Instagram content, the official selection, the calendar and the wristbands.</span></p></div></div>
+<div class="phase-label"><span class="ph-no">01</span><div><h3><span data-en="Before — the previous identity" data-it="Prima — l’identità precedente">Before — the previous identity</span></h3><p><span data-en="The logo, versions and palette the festival used in its first edition, before my work." data-it="Logo, versioni e palette con cui il festival si è presentato alla prima edizione, prima del mio intervento.">The logo, versions and palette the festival used in its first edition, before my work.</span></p></div></div>
 <div class="posts-grid white"><img data-intera="1" decoding="async" alt="35 MM Film Festival — previous logo" loading="lazy" src="assets/35mm-before-logo.webp"/><img decoding="async" alt="35 MM Film Festival — previous logo versions" loading="lazy" src="assets/35mm-before-versions.webp"/></div>
 <figure class="full"><img data-intera="1" decoding="async" alt="35 MM Film Festival — previous palette and typefaces" loading="lazy" src="assets/35mm-before-palette.webp"/></figure>
+<div class="phase-label"><span class="ph-no">02</span><div><h3><span data-en="After — my rebranding" data-it="Dopo — il mio rebranding">After — my rebranding</span></h3><p><span data-en="New mark, palette and visual system for the second edition, from posters to social and event materials." data-it="Nuovo marchio, palette e sistema visivo per la seconda edizione, dai poster ai social ai materiali dell’evento.">New mark, palette and visual system for the second edition, from posters to social and event materials.</span></p></div></div>
 <figure class="full"><img data-intera="1" decoding="async" alt="35 MM Film Festival rebranding 02" loading="lazy" src="assets/35mm-02.webp"/></figure>
 <figure class="full"><img data-intera="1" decoding="async" alt="35 MM Film Festival rebranding 03" loading="lazy" src="assets/35mm-03.webp"/></figure>
 <figure class="full"><img data-intera="1" decoding="async" alt="35 MM Film Festival rebranding 04" loading="lazy" src="assets/35mm-04.webp"/></figure>
