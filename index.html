@@ -605,6 +605,14 @@ body[data-view="about"]:has(#about.idx){background:#fff}
 .ab-toggle .hg{filter:drop-shadow(0 0 0 transparent)}
 .ab-toggle{mix-blend-mode:difference}
 .ab-toggle .hg img{filter:invert(1)}
+
+/* Info: al passaggio diventa nero come le righe; anteprime tutte della stessa grandezza */
+.ab-box.ab-info{cursor:default;transition:none}
+.ab-box.ab-info:hover{background:#0d0d0d;color:#fff}
+.ab-box.ab-info:hover h4{border-color:#fff}
+.ab-box.ab-info:hover h4::after{background-image:radial-gradient(#fff 1px,transparent 1.2px)}
+.ab-prev{width:auto!important}
+.ab-prev canvas,.ab-prev img{width:180px!important;height:240px!important;object-fit:cover}
 </style>
 
 <div class="portfolio">
@@ -973,11 +981,13 @@ body[data-view="about"]:has(#about.idx){background:#fff}
     }catch(e){ cv.replaceWith(im); im.style.filter='grayscale(1) contrast(3)'; cache[src]=im; }};
     im.src=src; return cv;
   }
-  const infoBox=wrap.querySelector('.ab-box'); infoBox.dataset.img='assets/sofia-portrait.jpg';
+  function place(e){ const r=prev.getBoundingClientRect(); prev.style.transform=`translate(${e.clientX-(r.width||260)/2}px,${e.clientY-(r.height||200)/2}px)`; }
+  window.addEventListener('scroll',()=>prev.classList.remove('on'),{passive:true});
+  const infoBox=wrap.querySelector('.ab-box'); infoBox.classList.add('ab-info'); infoBox.dataset.img='assets/sofia-portrait.jpg';
   [infoBox,...wrap.querySelectorAll('.ab-row[data-img]')].forEach(r=>{
-    r.addEventListener('mouseenter',()=>{ const el=dither(r.dataset.img); prev.replaceChildren(el); prev.classList.add('on'); });
+    r.addEventListener('mouseenter',e=>{ const el=dither(r.dataset.img); prev.replaceChildren(el); place(e); prev.classList.add('on'); });
     r.addEventListener('mouseleave',()=>prev.classList.remove('on'));
-    r.addEventListener('mousemove',e=>{ prev.style.transform=`translate(${e.clientX-130}px,${e.clientY-120}px)`; });
+    r.addEventListener('mousemove',place);
   });
   /* pulsante */
   const tg=document.createElement('div'); tg.className='ab-toggle'; tg.setAttribute('role','group');
