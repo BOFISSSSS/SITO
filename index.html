@@ -973,7 +973,8 @@ body[data-view="about"]:has(#about.idx){background:#fff}
     }catch(e){ cv.replaceWith(im); im.style.filter='grayscale(1) contrast(3)'; cache[src]=im; }};
     im.src=src; return cv;
   }
-  wrap.querySelectorAll('.ab-row[data-img]').forEach(r=>{
+  const infoBox=wrap.querySelector('.ab-box'); infoBox.dataset.img='assets/sofia-portrait.jpg';
+  [infoBox,...wrap.querySelectorAll('.ab-row[data-img]')].forEach(r=>{
     r.addEventListener('mouseenter',()=>{ const el=dither(r.dataset.img); prev.replaceChildren(el); prev.classList.add('on'); });
     r.addEventListener('mouseleave',()=>prev.classList.remove('on'));
     r.addEventListener('mousemove',e=>{ prev.style.transform=`translate(${e.clientX-130}px,${e.clientY-120}px)`; });
