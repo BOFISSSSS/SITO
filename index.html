@@ -593,6 +593,18 @@ body[data-view="about"]:has(#about.idx){background:#fff}
   .ab-row.head .sc{display:none}
   .ab-prev{display:none}
 }
+
+/* pulsante clessidra */
+.ab-toggle{border:0!important;background:none!important;padding:0}
+.ab-toggle .hg{appearance:none;border:0;background:none;padding:6px;cursor:pointer;line-height:0;border-radius:0}
+.ab-toggle .hg img{width:28px;height:auto;image-rendering:pixelated;display:block}
+.ab-toggle .hg:hover img{transform:scale(1.12)}
+.ab-toggle .hg.flip img{animation:hgflip .5s cubic-bezier(.2,.8,.2,1)}
+@keyframes hgflip{from{transform:rotate(0)}to{transform:rotate(180deg)}}
+.ab-toggle .hg,.ab-toggle .hg[aria-pressed="true"]{background:none!important;color:inherit!important}
+.ab-toggle .hg{filter:drop-shadow(0 0 0 transparent)}
+.ab-toggle{mix-blend-mode:difference}
+.ab-toggle .hg img{filter:invert(1)}
 </style>
 
 <div class="portfolio">
@@ -968,10 +980,11 @@ body[data-view="about"]:has(#about.idx){background:#fff}
   });
   /* pulsante */
   const tg=document.createElement('div'); tg.className='ab-toggle'; tg.setAttribute('role','group');
-  tg.innerHTML=`<span>Layout</span><button type="button" data-l="classic">${L('Classic','Classico')}</button><button type="button" data-l="index">${L('Index','Indice')}</button>`;
+  tg.innerHTML=`<button type="button" class="hg" aria-label="Cambia impaginazione / Switch layout" title="Layout"><img src="assets/hourglass.png" alt="" width="28" height="34"></button>`;
   document.body.appendChild(tg);
-  function set(l){ about.classList.toggle('idx',l==='index'); tg.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.l===l))); try{localStorage.setItem('about-layout',l)}catch(e){} }
-  tg.addEventListener('click',e=>{const b=e.target.closest('button'); if(b) set(b.dataset.l);});
+  let cur='classic';
+  function set(l){ cur=l; about.classList.toggle('idx',l==='index'); tg.querySelector('button').setAttribute('aria-pressed',String(l==='index')); try{localStorage.setItem('about-layout',l)}catch(e){} }
+  tg.addEventListener('click',()=>{ const b=tg.querySelector('button'); b.classList.remove('flip'); void b.offsetWidth; b.classList.add('flip'); set(cur==='index'?'classic':'index'); });
   let saved='classic'; try{saved=localStorage.getItem('about-layout')||'classic'}catch(e){}
   set(saved);
 })();
