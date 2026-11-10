@@ -676,6 +676,36 @@ body[data-view="about"]:has(#about.idx){background:#fff}
 .ab-toggle{left:50%!important;transform:translateX(-50%)}
 
 @media(max-width:820px){.ab-index.v2 .foot p:nth-child(2),.ab-index.v2 .foot p:nth-child(3),.ab-index.v2 .foot p:nth-child(4){display:none}}
+
+/* ===== About Indice su smartphone: una pagina verticale a schermo intero ===== */
+@media(max-width:820px){
+  .ab-index.v2{display:none;grid-template-columns:1fr 1fr;grid-template-rows:auto 1fr auto auto auto;column-gap:12px;row-gap:14px;
+    min-height:100vh;min-height:100svh;padding:70px 14px 64px;font-size:15px;line-height:1.05;overflow:hidden}
+  #about.idx>.ab-index.v2{display:grid}
+  .ab-index.v2>*{grid-column:auto!important;grid-row:auto!important;text-align:left!important}
+  .ab-index.v2 p{margin:0 0 .6em}
+  .ab-index.v2 .tl{grid-column:1 / span 2!important;grid-row:1!important}
+  .ab-index.v2 .ab-row{grid-template-columns:auto 1fr auto;gap:6px;padding:1px 0;font-size:15px;border:0}
+  .ab-index.v2 .ab-row .sc{display:none}
+  .ab-index.v2 .tc,.ab-index.v2 .ml,.ab-index.v2 .nums,.ab-index.v2 .small,.ab-index.v2 .tm{display:none!important}
+  .ab-index.v2 .tr{display:none!important}
+  .ab-index.v2 .big{grid-column:1 / span 2!important;grid-row:2!important;align-self:center;white-space:normal;font-size:clamp(54px,17vw,90px)!important;line-height:.82!important;letter-spacing:0;margin:0}
+  .ab-index.v2 .mr{grid-column:1 / span 2!important;grid-row:3!important;text-align:right!important}
+  .ab-index.v2 .mr .lead{display:inline-block;padding:0 0 3px 30%;margin-bottom:6px}
+  .ab-index.v2 .bl{grid-column:1!important;grid-row:4!important;font-size:14px}
+  .ab-index.v2 .bl .bd p+p{display:none}
+  .ab-index.v2 .br{display:block!important;grid-column:2!important;grid-row:4!important;text-align:right!important;font-size:14px}
+  .ab-index.v2 .br>p:first-child,.ab-index.v2 .br .dots:nth-of-type(n+3){display:none}
+  .ab-index.v2 .br .dots{text-align:right}
+  .ab-index.v2 .br p:not(:first-child){display:none}
+  .ab-index.v2 .bars{height:44px;margin-top:8px}
+  .ab-index.v2 .foot{grid-column:1 / span 2!important;grid-row:5!important;display:flex!important;justify-content:space-between;align-items:end;font-size:13px}
+  .ab-index.v2 .foot p{margin:0}
+  .ab-index.v2 .foot p:nth-child(2),.ab-index.v2 .foot p:nth-child(3),.ab-index.v2 .foot p:nth-child(4){display:none}
+  .ab-toggle{display:none}
+  body[data-view="about"] .ab-toggle{display:flex!important;bottom:14px;z-index:120}
+  .ab-toggle .hg img{width:26px}
+}
 </style>
 
 <div class="portfolio">
@@ -1028,7 +1058,7 @@ body[data-view="about"]:has(#about.idx){background:#fff}
     <p>5678</p><p>12</p>
   </div>
   <div class="ml">${dots(8)}${dots(8)}${dots(8)}${dots(8)}<p>= 01234</p><p class="ind">5678</p></div>
-  <h1 class="big">(SOFIA&nbsp;BERTINI)</h1>
+  <h1 class="big">(SOFIA <span>BERTINI)</span></h1>
   <div class="mr">
     <p class="lead">_ _ _ _ ${L('Write to','Scrivi a')}<br>${L('Sofia','Sofia')}</p>
     <p class="btns"><a href="mailto:sofiabertini96@gmail.com">( E-MAIL )</a> <a href="https://www.linkedin.com/in/sofiabertini" target="_blank" rel="noreferrer">( LINKEDIN )</a><br><a href="tel:+393914940460">( +39 391 4940460 )</a><br>&lt;&gt; ${L('Milan','Milano')}</p>
