@@ -468,7 +468,9 @@ img.broken,video.broken{visibility:hidden}
 
 /* foto della ruota: bianco e nero mentre scorri, a colori quando ti fermi (come su computer) */
 .wheel-thumb img{filter:none;transition:opacity .35s ease,transform .6s cubic-bezier(.2,.8,.2,1),filter .15s ease!important}
-.wheel.moving .wheel-thumb img{filter:grayscale(1) contrast(1.05)}
+/* foto visibile solo mentre giri la ruota */
+.wheel-thumb{opacity:0;transition:opacity .35s ease .5s;pointer-events:none}
+.wheel.moving .wheel-thumb{opacity:1;transition:opacity .15s ease 0s}
 
 /* colore più rapido anche su computer */
 .works-grid .tile-media img,.works-grid .tile-media video{transition:filter .18s ease!important}
