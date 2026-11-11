@@ -784,6 +784,15 @@ body.sn-on{overflow:hidden}
   #project .case.ed>.ed-hero.hero-media:has(img[data-intera]),#project .case.ed>.ed-hero.hero-media.nesta-logo:has(img[data-intera]){aspect-ratio:auto!important;height:auto!important}
   #project .case.ed>.ed-hero img[data-intera]{position:static!important;width:100%!important;height:auto!important;aspect-ratio:auto!important}
 }
+
+/* smartphone: spazietto tra le foto, con una riga nera sopra e una sotto ogni foto */
+@media(max-width:820px){
+  .case.ed>.full,.case.ed>.grid-2,.case.ed>.posts-grid,.case.ed>.nesta-ui-grid,.case.ed>.dark-panel,.case.ed>.color-panel,.case.ed>.hero-media:not(.ed-hero){
+    border-top:1px solid var(--ink)!important;border-bottom:1px solid var(--ink)!important;margin-bottom:10px!important}
+  .case.ed>.ed-story{margin-bottom:10px!important}
+  .case.ed>.phase-label{border-top:1px solid var(--ink)!important;margin-bottom:10px!important}
+  .case.ed>.case-next{border-top:1px solid var(--ink)!important;margin-top:30px!important}
+}
 </style>
 
 <div class="portfolio">
