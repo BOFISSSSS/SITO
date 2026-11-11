@@ -724,6 +724,22 @@ body[data-view="work"]:has(#work.has-wheel){background:var(--paper)!important}
 .wheel-cap a{color:var(--ink)!important;border-bottom-color:rgba(17,17,15,.35)!important}
 .wheel-thumb{background:#e5e1d9!important}
 
+
+/* ===== Snake con le parole (About) ===== */
+.sn-btn{position:fixed;right:var(--pad);bottom:clamp(16px,2.4vw,34px);z-index:96;display:none;appearance:none;border:0;background:none;padding:6px;cursor:pointer;line-height:0;mix-blend-mode:difference}
+body[data-view="about"] .sn-btn{display:block}
+.sn-btn svg{width:30px;height:30px;display:block}
+.sn-btn:hover svg{transform:scale(1.12)}
+body[data-view="about"] .to-top{bottom:calc(clamp(16px,2.4vw,34px) + 56px)}
+.sn-layer{position:fixed;inset:0;z-index:200;touch-action:none;mix-blend-mode:difference}
+.sn-layer canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.sn-hud{position:absolute;left:50%;transform:translateX(-50%);bottom:76px;text-align:center;white-space:nowrap;font:400 20px/1.1 "VT323",ui-monospace,monospace;text-transform:uppercase;color:#fff;pointer-events:none;letter-spacing:.04em}
+.sn-x{position:absolute;right:14px;top:10px;appearance:none;border:0;background:none;color:#fff;font:400 22px/1 "VT323",ui-monospace,monospace;cursor:pointer;padding:4px 6px}
+.sn-end{position:fixed;z-index:210;left:50%;top:50%;transform:translate(-50%,-50%);background:#0d0d0d;color:#fff;padding:18px 22px;font:400 24px/1.15 "VT323",ui-monospace,monospace;text-transform:uppercase;text-align:center;cursor:auto;min-width:240px}
+.sn-end button{appearance:none;border:0;background:none;color:inherit;font:inherit;cursor:pointer;padding:2px 6px;margin:8px 4px 0}
+.sn-end button:hover{background:#fff;color:#0d0d0d}
+.sw.eaten{visibility:hidden}
+body.sn-on{overflow:hidden}
 </style>
 
 <div class="portfolio">
@@ -1143,6 +1159,100 @@ body[data-view="work"]:has(#work.has-wheel){background:var(--paper)!important}
   tg.addEventListener('click',()=>{ const b=tg.querySelector('button'); b.classList.remove('flip'); void b.offsetWidth; b.classList.add('flip'); set(cur==='index'?'classic':'index'); });
   set('classic');
   window.addEventListener('hashchange',()=>{ if(location.hash==='#about') set('classic'); });
+})();
+</script>
+<script>
+/* Snake: il serpente mangia le parole della pagina About */
+(function(){
+  const about=document.getElementById('about'); if(!about) return;
+  const btn=document.createElement('button'); btn.className='sn-btn'; btn.type='button'; btn.setAttribute('aria-label','Snake');
+  btn.innerHTML='<svg viewBox="0 0 10 10" shape-rendering="crispEdges" fill="#fff"><rect x="1" y="1" width="6" height="1"/><rect x="1" y="2" width="1" height="2"/><rect x="1" y="4" width="7" height="1"/><rect x="7" y="5" width="1" height="2"/><rect x="2" y="7" width="6" height="1"/><rect x="6" y="1" width="1" height="1" fill="#000"/><rect x="8" y="1" width="1" height="1"/></svg>';
+  document.body.appendChild(btn);
+  let endBox=null,layer,cv,ctx,hud,timer,cell,cols,rows,snake,dir,next,grow,words,score,running=false,dpr;
+  const SKIP='script,style,button,svg,canvas,.ab-toggle,.sn-btn,.ab-prev';
+  function wrapWords(root){
+    const tw=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{
+      if(!n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+      const el=n.parentElement; if(!el||el.closest(SKIP)) return NodeFilter.FILTER_REJECT;
+      const st=getComputedStyle(el); if(st.display==='none'||st.visibility==='hidden') return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;}});
+    const nodes=[]; while(tw.nextNode()) nodes.push(tw.currentNode);
+    nodes.forEach(n=>{ const f=document.createDocumentFragment();
+      n.nodeValue.split(/(\s+)/).forEach(part=>{ if(!part) return; if(/^\s+$/.test(part)) f.appendChild(document.createTextNode(part)); else { const sp=document.createElement('span'); sp.className='sw'; sp.textContent=part; f.appendChild(sp);} });
+      n.parentNode.replaceChild(f,n); });
+  }
+  function unwrap(){ about.querySelectorAll('span.sw').forEach(sp=>{ const p=sp.parentNode; p.replaceChild(document.createTextNode(sp.textContent),sp); p.normalize(); }); }
+  function collect(){
+    words=[...about.querySelectorAll('span.sw')].map(el=>({el,r:el.getBoundingClientRect()}))
+      .filter(w=>w.r.width>0&&w.r.height>0&&w.r.bottom>0&&w.r.top<innerHeight&&w.r.right>0&&w.r.left<innerWidth);
+  }
+  function setup(){
+    dpr=Math.min(2,devicePixelRatio||1); cell=innerWidth<820?12:16;
+    cols=Math.floor(innerWidth/cell); rows=Math.floor(innerHeight/cell);
+    cv.width=innerWidth*dpr; cv.height=innerHeight*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  function reset(){
+    const cx=Math.floor(cols/2), cy=Math.floor(rows/2);
+    snake=[]; for(let i=0;i<6;i++) snake.push({x:cx-i,y:cy});
+    dir={x:1,y:0}; next=dir; grow=0; score=0;
+    about.querySelectorAll('span.sw.eaten').forEach(e=>e.classList.remove('eaten'));
+    collect(); updHud();
+  }
+  function updHud(){ const it=document.documentElement.lang==='it'; hud.innerHTML=(it?'Parole mangiate ':'Words eaten ')+String(score).padStart(3,'0')+' / '+words.length+'<br><span style="opacity:.7">'+(innerWidth<820?(it?'Scorri per girare':'Swipe to turn'):(it?'Frecce o WASD':'Arrows or WASD'))+' · ESC</span>'; }
+  function draw(){
+    ctx.clearRect(0,0,innerWidth,innerHeight); ctx.fillStyle='#fff';
+    snake.forEach((p,i)=>{ const pad=i===0?0:1; ctx.fillRect(p.x*cell+pad,p.y*cell+pad,cell-pad*2,cell-pad*2); });
+    const h=snake[0]; ctx.clearRect(h.x*cell+cell*0.55,h.y*cell+cell*0.25,cell*0.18,cell*0.18);
+  }
+  function step(){
+    dir=next; const h={x:(snake[0].x+dir.x+cols)%cols,y:(snake[0].y+dir.y+rows)%rows};
+    if(snake.some((p,i)=>i<snake.length-1&&p.x===h.x&&p.y===h.y)) return end(false);
+    snake.unshift(h); if(grow>0) grow--; else snake.pop();
+    const hx=h.x*cell, hy=h.y*cell;
+    for(const w of words){ if(w.el.classList.contains('eaten')) continue;
+      const r=w.r; if(hx<r.right&&hx+cell>r.left&&hy<r.bottom&&hy+cell>r.top){ w.el.classList.add('eaten'); score++; grow+=3; updHud(); } }
+    draw();
+    if(score>=words.length&&words.length) return end(true);
+  }
+  function loop(){ clearInterval(timer); timer=setInterval(step,Math.max(55,95-score*0.6)); }
+  function end(win){
+    clearInterval(timer); running=false; const it=document.documentElement.lang==='it';
+    const box=document.createElement('div'); box.className='sn-end';
+    box.innerHTML=(win?(it?'Hai mangiato tutto!':'You ate everything!'):'Game over')+'<br>'+(it?'Parole ':'Words ')+score+'<br><button type="button" data-a="again">('+(it?'Rigioca':'Play again')+')</button><button type="button" data-a="exit">('+(it?'Esci':'Exit')+')</button>';
+    box.addEventListener('click',e=>{ const a=e.target.closest('button')?.dataset.a; if(a==='again'){ box.remove(); endBox=null; reset(); draw(); running=true; loop(); } if(a==='exit') stop(); });
+    document.body.appendChild(box); endBox=box;
+  }
+  function turn(x,y){ if(!running) return; if(x===-dir.x&&y===-dir.y) return; next={x,y}; }
+  function key(e){
+    const k=e.key; if(k==='Escape'){ stop(); return; }
+    const m={ArrowUp:[0,-1],w:[0,-1],W:[0,-1],ArrowDown:[0,1],s:[0,1],S:[0,1],ArrowLeft:[-1,0],a:[-1,0],A:[-1,0],ArrowRight:[1,0],d:[1,0],D:[1,0]}[k];
+    if(m){ e.preventDefault(); turn(m[0],m[1]); }
+  }
+  let t0=null;
+  function start(){
+    if(layer) return;
+    wrapWords(about);
+    document.body.classList.add('sn-on');
+    layer=document.createElement('div'); layer.className='sn-layer';
+    layer.innerHTML='<canvas></canvas><div class="sn-hud"></div><button class="sn-x" type="button" aria-label="Exit">[X]</button>';
+    document.body.appendChild(layer);
+    cv=layer.querySelector('canvas'); ctx=cv.getContext('2d'); hud=layer.querySelector('.sn-hud');
+    layer.querySelector('.sn-x').addEventListener('click',stop);
+    layer.addEventListener('touchstart',e=>{ const t=e.touches[0]; t0={x:t.clientX,y:t.clientY}; },{passive:true});
+    layer.addEventListener('touchmove',e=>{ if(!t0) return; const t=e.touches[0], dx=t.clientX-t0.x, dy=t.clientY-t0.y; if(Math.max(Math.abs(dx),Math.abs(dy))<18) return;
+      if(Math.abs(dx)>Math.abs(dy)) turn(dx>0?1:-1,0); else turn(0,dy>0?1:-1); t0={x:t.clientX,y:t.clientY}; },{passive:true});
+    addEventListener('keydown',key); addEventListener('resize',onResize);
+    setup(); reset(); draw(); running=true; loop();
+  }
+  function onResize(){ if(!layer) return; setup(); collect(); updHud(); draw(); }
+  function stop(){
+    clearInterval(timer); running=false;
+    removeEventListener('keydown',key); removeEventListener('resize',onResize);
+    if(layer){ layer.remove(); layer=null; } if(endBox){ endBox.remove(); endBox=null; }
+    document.body.classList.remove('sn-on'); unwrap();
+  }
+  btn.addEventListener('click',()=>{ layer?stop():start(); });
+  addEventListener('hashchange',()=>{ if(layer) stop(); });
 })();
 </script>
 <script>
