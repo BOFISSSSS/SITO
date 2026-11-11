@@ -727,10 +727,10 @@ body[data-view="work"]:has(#work.has-wheel){background:var(--paper)!important}
 
 /* ===== Snake con le parole (About) ===== */
 .sn-btn{position:fixed;right:var(--pad);bottom:clamp(16px,2.4vw,34px);z-index:96;display:none;appearance:none;border:0;background:none;padding:6px;cursor:pointer;line-height:0;mix-blend-mode:difference}
-body[data-view="about"] .sn-btn{display:block}
-.sn-btn svg{width:30px;height:30px;display:block}
-.sn-btn:hover svg{transform:scale(1.12)}
-body[data-view="about"] .to-top{bottom:calc(clamp(16px,2.4vw,34px) + 56px)}
+@media(max-width:820px){body[data-view="about"]:has(#about.idx) .sn-btn{display:block}}
+.sn-btn img{width:28px;height:auto;display:block;image-rendering:pixelated}
+.sn-btn:hover img{transform:scale(1.12)}
+@media(max-width:820px){body[data-view="about"]:has(#about.idx) .to-top{bottom:calc(clamp(16px,2.4vw,34px) + 56px)}}
 .sn-layer{position:fixed;inset:0;z-index:200;touch-action:none;mix-blend-mode:difference}
 .sn-layer canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .sn-hud{position:absolute;left:50%;transform:translateX(-50%);bottom:76px;text-align:center;white-space:nowrap;font:400 20px/1.1 "VT323",ui-monospace,monospace;text-transform:uppercase;color:#fff;pointer-events:none;letter-spacing:.04em}
@@ -1166,7 +1166,7 @@ body.sn-on{overflow:hidden}
 (function(){
   const about=document.getElementById('about'); if(!about) return;
   const btn=document.createElement('button'); btn.className='sn-btn'; btn.type='button'; btn.setAttribute('aria-label','Snake');
-  btn.innerHTML='<svg viewBox="0 0 10 10" shape-rendering="crispEdges" fill="#fff"><rect x="1" y="1" width="6" height="1"/><rect x="1" y="2" width="1" height="2"/><rect x="1" y="4" width="7" height="1"/><rect x="7" y="5" width="1" height="2"/><rect x="2" y="7" width="6" height="1"/><rect x="6" y="1" width="1" height="1" fill="#000"/><rect x="8" y="1" width="1" height="1"/></svg>';
+  btn.innerHTML='<img src="assets/ship.png" alt="" width="30" height="33">';
   document.body.appendChild(btn);
   let endBox=null,layer,cv,ctx,hud,timer,cell,cols,rows,snake,dir,next,grow,words,score,running=false,dpr;
   const SKIP='script,style,button,svg,canvas,.ab-toggle,.sn-btn,.ab-prev';
@@ -1253,6 +1253,7 @@ body.sn-on{overflow:hidden}
   }
   btn.addEventListener('click',()=>{ layer?stop():start(); });
   addEventListener('hashchange',()=>{ if(layer) stop(); });
+  new MutationObserver(()=>{ if(layer&&!about.classList.contains('idx')) stop(); }).observe(about,{attributes:true,attributeFilter:['class']});
 })();
 </script>
 <script>
