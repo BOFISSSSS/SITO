@@ -793,6 +793,12 @@ body.sn-on{overflow:hidden}
   .case.ed>.phase-label{border-top:1px solid var(--ink)!important;margin-bottom:10px!important}
   .case.ed>.case-next{border-top:1px solid var(--ink)!important;margin-top:30px!important}
 }
+
+/* smartphone: anche le foto dentro le coppie (una sotto l'altra) hanno spazietto e due righe */
+@media(max-width:820px){
+  .case.ed>.grid-2:not(.gif-pair),.case.ed>.posts-grid,.case.ed>.nesta-ui-grid{gap:10px!important;background:none!important;border-top:0!important;border-bottom:0!important}
+  .case.ed>.grid-2:not(.gif-pair)>*,.case.ed>.posts-grid>*,.case.ed>.nesta-ui-grid>*{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);display:block}
+}
 </style>
 
 <div class="portfolio">
