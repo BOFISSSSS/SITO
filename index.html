@@ -245,7 +245,7 @@ body[data-view="work"]:has(#work.has-wheel){background:var(--ink)}
 .works-grid.ring:active{cursor:grabbing}
 .works-grid.ring .tile-info .tile-no,.works-grid.ring .tile-info>span{display:none}
 .works-grid.ring .tile-info h2{margin:0}
-.works-grid.ring .tile{position:absolute;left:0;top:0;transition:none;will-change:transform,width}
+.works-grid.ring .tile{position:absolute;left:0;top:0;transition:none}
 .works-grid.ring .tile-media{aspect-ratio:3/4}
 .works-grid.ring .tile-media img,.works-grid.ring .tile-media video{pointer-events:none;-webkit-user-drag:none}
 
@@ -870,6 +870,10 @@ body[data-view="about"]{background:var(--paper)}
 .abu-meta,.abu-sub{display:none}
 @media(min-width:821px){#about>.ab-uy{display:none!important}}
 @media(max-width:820px){#about>.ab-desk{display:none!important}}
+
+/* striscia Works su computer: più leggera da disegnare */
+.works-grid.ring .tile{will-change:transform;contain:layout style}
+.works-grid.ring .tile-media{contain:paint}
 </style>
 
 <div class="portfolio">
@@ -901,16 +905,16 @@ body[data-view="about"]{background:var(--paper)}
   <!-- Per una copertina animata metti una .gif al posto dell'immagine,
        oppure un video: <video autoplay muted loop playsinline src="assets/xxx.mp4"></video> -->
   <div class="works-grid" id="grid">
-    <a class="tile" href="#open"><figure class="tile-media"><img alt="OpenEconomics publication in a canyon" src="assets/cover-open.webp"/></figure><div class="tile-info"><span class="tile-no">01</span><h2>OpenEconomics</h2><span><span data-en="Communication System · Editorial Design · AI Art Direction" data-it="Sistema di comunicazione · Editorial design · AI art direction">Communication System · Editorial Design · AI Art Direction</span></span></div></a>
-    <a class="tile" href="#san"><figure class="tile-media"><img alt="SanPietro" src="assets/cover-san-o.webp"/></figure><div class="tile-info"><span class="tile-no">02</span><h2>SanPietro</h2><span><span data-en="Luxury Brand Identity · Art Direction · Visual Language" data-it="Brand identity luxury · Art direction · Linguaggio visivo">Luxury Brand Identity · Art Direction · Visual Language</span></span></div></a>
-    <a class="tile" href="#del"><figure class="tile-media"><img alt="Del Tongo Oltre la superficie campaign" src="assets/cover-del-o.webp"/></figure><div class="tile-info"><span class="tile-no">03</span><h2>Del Tongo</h2><span><span data-en="Concept Campaign · Eurocucina 2026 · Creative Direction" data-it="Concept campaign · Eurocucina 2026 · Direzione creativa">Concept Campaign · Eurocucina 2026 · Creative Direction</span></span></div></a>
-    <a class="tile" href="#culture"><figure class="tile-media"><img alt="Culture Strike banners" src="assets/cover-culture.webp"/></figure><div class="tile-info"><span class="tile-no">04</span><h2>Culture Strike</h2><span><span data-en="Cultural Identity System · Event Branding · Environmental Graphics" data-it="Sistema di identità culturale · Event branding · Grafica ambientale">Cultural Identity System · Event Branding · Environmental Graphics</span></span></div></a>
-    <a class="tile" href="#vip"><figure class="tile-media"><img alt="VIP Tennis Cup courts" src="assets/cover-vip-o.webp"/></figure><div class="tile-info"><span class="tile-no">05</span><h2>VIP Tennis Cup</h2><span><span data-en="Event Identity · Brand Experience · Digital Communication" data-it="Identità evento · Brand experience · Comunicazione digitale">Event Identity · Brand Experience · Digital Communication</span></span></div></a>
-    <a class="tile" href="#nesta"><figure class="tile-media"><img alt="Nesta House outdoor brand application" src="assets/cover-nesta.webp"/></figure><div class="tile-info"><span class="tile-no">06</span><h2>Nesta House</h2><span><span data-en="Brand Identity · UX/UI Design · Digital Experience" data-it="Brand identity · UX/UI design · Esperienza digitale">Brand Identity · UX/UI Design · Digital Experience</span></span></div></a>
-    <a class="tile" href="#house"><figure class="tile-media"><img alt="House Master" src="assets/cover-house-o.webp"/></figure><div class="tile-info"><span class="tile-no">07</span><h2>House Master</h2><span><span data-en="Brand Identity · Character Design · Print" data-it="Brand identity · Character design · Stampa">Brand Identity · Character Design · Print</span></span></div></a>
-    <a class="tile" href="#boldbrew"><figure class="tile-media"><img alt="Bold Brew Coffee" src="assets/cover-boldbrew.webp"/></figure><div class="tile-info"><span class="tile-no">08</span><h2>Bold Brew Coffee</h2><span><span data-en="Brand Identity · Illustration · Packaging" data-it="Brand identity · Illustrazione · Packaging">Brand Identity · Illustration · Packaging</span></span></div></a>
-    <a class="tile" href="#35mm"><figure class="tile-media"><img alt="35 MM Film Festival" src="assets/cover-35mm-o.webp"/></figure><div class="tile-info"><span class="tile-no">09</span><h2>35 MM Film Festival</h2><span><span data-en="Rebranding · Social Media · Event Materials" data-it="Rebranding · Social media · Materiali evento">Rebranding · Social Media · Event Materials</span></span></div></a>
-    <a class="tile" href="#horseshop"><figure class="tile-media"><img alt="Horseshop Brewery" src="assets/cover-horseshop-o.webp"/></figure><div class="tile-info"><span class="tile-no">10</span><h2>Horseshop Brewery</h2><span><span data-en="Brand Identity · Illustration · Packaging" data-it="Brand identity · Illustrazione · Packaging">Brand Identity · Illustration · Packaging</span></span></div></a>
+    <a class="tile" href="#open"><figure class="tile-media"><img decoding="async" alt="OpenEconomics publication in a canyon" src="assets/thumb-open.webp"/></figure><div class="tile-info"><span class="tile-no">01</span><h2>OpenEconomics</h2><span><span data-en="Communication System · Editorial Design · AI Art Direction" data-it="Sistema di comunicazione · Editorial design · AI art direction">Communication System · Editorial Design · AI Art Direction</span></span></div></a>
+    <a class="tile" href="#san"><figure class="tile-media"><img decoding="async" alt="SanPietro" src="assets/thumb-san-o.webp"/></figure><div class="tile-info"><span class="tile-no">02</span><h2>SanPietro</h2><span><span data-en="Luxury Brand Identity · Art Direction · Visual Language" data-it="Brand identity luxury · Art direction · Linguaggio visivo">Luxury Brand Identity · Art Direction · Visual Language</span></span></div></a>
+    <a class="tile" href="#del"><figure class="tile-media"><img decoding="async" alt="Del Tongo Oltre la superficie campaign" src="assets/thumb-del-o.webp"/></figure><div class="tile-info"><span class="tile-no">03</span><h2>Del Tongo</h2><span><span data-en="Concept Campaign · Eurocucina 2026 · Creative Direction" data-it="Concept campaign · Eurocucina 2026 · Direzione creativa">Concept Campaign · Eurocucina 2026 · Creative Direction</span></span></div></a>
+    <a class="tile" href="#culture"><figure class="tile-media"><img decoding="async" alt="Culture Strike banners" src="assets/thumb-culture.webp"/></figure><div class="tile-info"><span class="tile-no">04</span><h2>Culture Strike</h2><span><span data-en="Cultural Identity System · Event Branding · Environmental Graphics" data-it="Sistema di identità culturale · Event branding · Grafica ambientale">Cultural Identity System · Event Branding · Environmental Graphics</span></span></div></a>
+    <a class="tile" href="#vip"><figure class="tile-media"><img decoding="async" alt="VIP Tennis Cup courts" src="assets/thumb-vip-o.webp"/></figure><div class="tile-info"><span class="tile-no">05</span><h2>VIP Tennis Cup</h2><span><span data-en="Event Identity · Brand Experience · Digital Communication" data-it="Identità evento · Brand experience · Comunicazione digitale">Event Identity · Brand Experience · Digital Communication</span></span></div></a>
+    <a class="tile" href="#nesta"><figure class="tile-media"><img decoding="async" alt="Nesta House outdoor brand application" src="assets/thumb-nesta.webp"/></figure><div class="tile-info"><span class="tile-no">06</span><h2>Nesta House</h2><span><span data-en="Brand Identity · UX/UI Design · Digital Experience" data-it="Brand identity · UX/UI design · Esperienza digitale">Brand Identity · UX/UI Design · Digital Experience</span></span></div></a>
+    <a class="tile" href="#house"><figure class="tile-media"><img decoding="async" alt="House Master" src="assets/thumb-house-o.webp"/></figure><div class="tile-info"><span class="tile-no">07</span><h2>House Master</h2><span><span data-en="Brand Identity · Character Design · Print" data-it="Brand identity · Character design · Stampa">Brand Identity · Character Design · Print</span></span></div></a>
+    <a class="tile" href="#boldbrew"><figure class="tile-media"><img decoding="async" alt="Bold Brew Coffee" src="assets/thumb-boldbrew.webp"/></figure><div class="tile-info"><span class="tile-no">08</span><h2>Bold Brew Coffee</h2><span><span data-en="Brand Identity · Illustration · Packaging" data-it="Brand identity · Illustrazione · Packaging">Brand Identity · Illustration · Packaging</span></span></div></a>
+    <a class="tile" href="#35mm"><figure class="tile-media"><img decoding="async" alt="35 MM Film Festival" src="assets/thumb-35mm-o.webp"/></figure><div class="tile-info"><span class="tile-no">09</span><h2>35 MM Film Festival</h2><span><span data-en="Rebranding · Social Media · Event Materials" data-it="Rebranding · Social media · Materiali evento">Rebranding · Social Media · Event Materials</span></span></div></a>
+    <a class="tile" href="#horseshop"><figure class="tile-media"><img decoding="async" alt="Horseshop Brewery" src="assets/thumb-horseshop-o.webp"/></figure><div class="tile-info"><span class="tile-no">10</span><h2>Horseshop Brewery</h2><span><span data-en="Brand Identity · Illustration · Packaging" data-it="Brand identity · Illustrazione · Packaging">Brand Identity · Illustration · Packaging</span></span></div></a>
   </div>
 
 </section>
@@ -1518,40 +1522,49 @@ document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
     tiles.forEach((t,i)=>{const d=Math.abs(mx-X[i]); if(d<bd){bd=d;best=i;}});
     return bd<=Math.max(W[best]||w0,w0)/2+gap ? best : -1;
   }
+  let idle=0, lastIn=0;
+  const visible=()=>grid.offsetParent!==null;
+  function kick(){ lastIn=performance.now(); if(running&&!raf&&visible()){ last=0; raf=requestAnimationFrame(frame); } }
   function frame(ts){
-    if(!running) return;
+    raf=0;
+    if(!running||!visible()) return;
     const dt=last?Math.min(0.05,(ts-last)/1000):0.016; last=ts;
     const cx=grid.clientWidth/2, cy=grid.clientHeight/2+30, n=tiles.length;
     const nh=pick(cx,cy);
     if(nh!==hi){ if(hi>=0) tiles[hi].classList.remove('is-open'); hi=nh; if(hi>=0) tiles[hi].classList.add('is-open'); }
     const k=1-Math.exp(-dt*9); // morbidezza
     const U=tiles.map((t,i)=>wrap(i*step-off));
+    let settled=true;
     tiles.forEach((t,i)=>{
       let target=w0;
       if(hi>=0){ let d=Math.abs(i-hi); d=Math.min(d,n-d); if(d<PROF.length) target=w0+(w1-w0)*PROF[d]; }
-      W[i]+=(target-W[i])*k;
+      const dw=target-W[i]; if(Math.abs(dw)>0.05){ W[i]+=dw*k; settled=false; } else W[i]=target;
     });
     tiles.forEach((t,i)=>{
       let shift=0;
       for(let j=0;j<n;j++){ if(j===i) continue; const g=(W[j]-w0)/2; if(g<0.05) continue; shift+= U[j]<U[i]? g : -g; }
       const w=W[i], h=w*4/3; X[i]=cx+U[i]+shift;
-      t.style.width=w.toFixed(2)+'px';
-      t.style.transform=`translate3d(${(X[i]-w/2).toFixed(2)}px,${(cy-h/2).toFixed(2)}px,0)`;
+      const ws=w.toFixed(1)+'px', tr=`translate3d(${(X[i]-w/2).toFixed(1)}px,${(cy-h/2).toFixed(1)}px,0)`;
+      if(t._w!==ws){ t.style.width=ws; t._w=ws; }
+      if(t._t!==tr){ t.style.transform=tr; t._t=tr; }
     });
+    /* si ferma da sola quando tutto è fermo: niente calcoli inutili */
+    if(settled&&!drag&&performance.now()-lastIn>250) return;
     raf=requestAnimationFrame(frame);
   }
-  function start(){ if(running) return; build(); W=[]; measure(); off=(originals.length-1)/2*step; grid.classList.add('ring'); originals.forEach(t=>t.classList.remove('is-open')); hi=-1; running=true; last=0; raf=requestAnimationFrame(frame); }
-  function stop(){ running=false; cancelAnimationFrame(raf); tiles.forEach(t=>t.classList.remove('is-open')); hi=-1; grid.classList.remove('ring'); grid.querySelectorAll('.tile.clone').forEach(c=>c.remove()); originals.forEach(t=>{t.style.width='';t.style.transform='';}); }
+  function start(){ if(running) return; build(); W=[]; measure(); off=(originals.length-1)/2*step; grid.classList.add('ring'); originals.forEach(t=>t.classList.remove('is-open')); hi=-1; running=true; last=0; raf=0; kick(); }
+  function stop(){ running=false; cancelAnimationFrame(raf); raf=0; tiles.forEach(t=>t.classList.remove('is-open')); hi=-1; grid.classList.remove('ring'); grid.querySelectorAll('.tile.clone').forEach(c=>c.remove()); originals.forEach(t=>{t.style.width='';t.style.transform='';t._w=t._t=null;}); }
   function sync(){ mq.matches?start():stop(); }
-  grid.addEventListener('pointermove',e=>{ const r=grid.getBoundingClientRect(); mx=e.clientX-r.left; my=e.clientY-r.top; });
-  grid.addEventListener('pointerleave',()=>{ mx=my=null; });
-  grid.addEventListener('wheel',e=>{ if(!running) return; e.preventDefault(); off+=(Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY)*0.6; },{passive:false});
-  grid.addEventListener('pointerdown',e=>{ if(!running||e.button!==0) return; drag={x:e.clientX,o:off}; moved=0; });
-  window.addEventListener('pointermove',e=>{ if(!drag) return; const dx=e.clientX-drag.x; moved=Math.max(moved,Math.abs(dx)); if(moved>6) off=drag.o-dx; });
-  window.addEventListener('pointerup',()=>{ drag=null; });
+  grid.addEventListener('pointermove',e=>{ const r=grid.getBoundingClientRect(); mx=e.clientX-r.left; my=e.clientY-r.top; kick(); });
+  grid.addEventListener('pointerleave',()=>{ mx=my=null; kick(); });
+  grid.addEventListener('wheel',e=>{ if(!running) return; e.preventDefault(); off+=(Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY)*0.6; kick(); },{passive:false});
+  grid.addEventListener('pointerdown',e=>{ if(!running||e.button!==0) return; drag={x:e.clientX,o:off}; moved=0; kick(); });
+  window.addEventListener('pointermove',e=>{ if(!drag) return; const dx=e.clientX-drag.x; moved=Math.max(moved,Math.abs(dx)); if(moved>6) off=drag.o-dx; kick(); });
+  window.addEventListener('pointerup',()=>{ drag=null; kick(); });
   grid.addEventListener('click',e=>{ if(moved>6){ e.preventDefault(); e.stopPropagation(); moved=0; return; } if(!running) return; const t=hi>=0?tiles[hi]:null; if(t&&!e.target.closest('.tile')){ e.preventDefault(); location.hash=t.getAttribute('href'); } },true);
   grid.addEventListener('dragstart',e=>e.preventDefault());
-  window.addEventListener('resize',()=>{ if(running) measure(); });
+  window.addEventListener('resize',()=>{ if(running){ measure(); kick(); } });
+  window.addEventListener('hashchange',()=>setTimeout(kick,0));
   (mq.addEventListener?mq.addEventListener('change',sync):mq.addListener(sync));
   sync();
 })();
