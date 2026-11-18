@@ -1677,7 +1677,7 @@ setLanguage(savedLanguage||(navigator.language.toLowerCase().startsWith('it')?'i
     const c=it.cv; c.style.left=el.offsetLeft+'px'; c.style.top=el.offsetTop+'px'; c.style.width=w+'px'; c.style.height=h+'px';
     if(c.width!==cols) c.width=cols; if(c.height!==rows) c.height=rows;
     tmp.width=cols; tmp.height=rows; tx.fillStyle='#fff'; tx.fillRect(0,0,cols,rows);
-    const cs=getComputedStyle(el), fit=cs.objectFit; const tl=el.closest('.works-grid .tile'); it.red=!!(tl&&tl.classList.contains('is-open')); const ink=it.red?[184,240,30]:[13,13,13];
+    const cs=getComputedStyle(el), fit=cs.objectFit; const tl=el.closest('.works-grid .tile'); it.red=!!(tl&&tl.classList.contains('is-open')); const ink=it.red?[191,255,0]:[13,13,13];
     try{
       if(fit==='contain'){ const sc=Math.min(w/iw,h/ih), dw=iw*sc*cols/w, dh=ih*sc*rows/h; tx.drawImage(el,(cols-dw)/2,(rows-dh)/2,dw,dh); }
       else if(fit==='cover'){ const sc=Math.max(w/iw,h/ih), sw=w/sc, sh=h/sc; const pos=(cs.objectPosition||'50% 50%').split(' ').map(v=>parseFloat(v)/100); const ox=isNaN(pos[0])?.5:pos[0], oy=isNaN(pos[1])?.5:pos[1]; tx.drawImage(el,(iw-sw)*ox,(ih-sh)*oy,sw,sh,0,0,cols,rows); }
