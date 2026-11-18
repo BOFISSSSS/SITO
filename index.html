@@ -881,6 +881,31 @@ body[data-view="about"]{background:var(--paper)}
 .works-grid.ring .tile-media img,.works-grid.ring .tile-media video{transition:none!important;will-change:auto}
 .works-grid.ring .tile{contain:layout style}
 .works-grid.ring .tile-media{contain:paint}
+
+/* ===== Linee: arrivano fino ai bordi dello schermo ===== */
+.view{overflow-x:clip}
+.ed-meta,.case.ed>.phase-label,.about .about-meta{position:relative}
+.ed-meta{border-bottom:0!important}
+.ed-meta::after{content:"";position:absolute;left:-100vw;right:-100vw;bottom:0;border-bottom:1px solid var(--line);pointer-events:none}
+.case.ed>.phase-label{border-top:0!important}
+.case.ed>.phase-label::before{content:"";position:absolute;left:-100vw;right:-100vw;top:0;border-top:1px solid var(--line);pointer-events:none}
+.about .about-meta{border-top:0!important}
+.about .about-meta::before{content:"";position:absolute;left:-100vw;right:-100vw;top:0;border-top:1px solid rgba(255,255,255,.24);pointer-events:none}
+.case .outcome+.case-next::before{left:0!important;right:0!important}
+
+/* ===== Clessidra nell'intestazione: tutto il sito in estetica ASCII ===== */
+.language-switch .asc-btn,.asc-btn{appearance:none;border:0;background:none;padding:4px;opacity:1;margin-right:8px;cursor:pointer;line-height:0;color:inherit}
+.asc-btn img{width:17px;height:auto;image-rendering:pixelated;filter:invert(1);display:block;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.asc-btn:hover img{transform:scale(1.15)}
+body.ascii .asc-btn img{transform:rotate(180deg)}
+body[data-view="home"] .header .asc-btn{visibility:visible}
+body.ascii,body.ascii *{font-family:"VT323",ui-monospace,Menlo,monospace!important;letter-spacing:0!important;font-weight:400!important}
+body.ascii .asc-dash{border-style:dashed!important}
+body.ascii .ed-meta::after,body.ascii .case.ed>.phase-label::before,body.ascii .about .about-meta::before,body.ascii .case-next::before{border-top-style:dashed!important;border-bottom-style:dashed!important}
+.asc-pre{position:absolute;left:0;top:0;margin:0;padding:0;overflow:hidden;pointer-events:none;z-index:1;white-space:pre;line-height:1;color:var(--ink);background:var(--paper);transition:opacity .35s ease,color .18s ease;letter-spacing:0!important}
+body:not(.ascii) .asc-pre{display:none}
+body.ascii img.asc-src,body.ascii video.asc-src{opacity:0!important}
+body.ascii .works-grid .tile.is-open .asc-pre,body.ascii .works-grid .tile:hover .asc-pre{color:#e34345}
 </style>
 
 <div class="portfolio">
@@ -889,7 +914,7 @@ body[data-view="about"]{background:var(--paper)}
 <a class="brand" href="#home">SOFIA BERTINI</a>
 <nav class="nav"><a data-nav="work" href="#work"><span data-en="Work" data-it="Progetti">Work</span></a><a data-nav="about" href="#about"><span data-en="About" data-it="Profilo">About</span></a></nav>
 <span class="status"><span data-en="Milan · Available worldwide" data-it="Milano · Disponibile in tutto il mondo">Milan · Available worldwide</span></span>
-<div aria-label="Language selector" class="language-switch" role="group"><button aria-pressed="false" data-lang="en" type="button">EN</button><button aria-pressed="false" data-lang="it" type="button">IT</button></div></header>
+<div aria-label="Language selector" class="language-switch" role="group"><button aria-label="ASCII" aria-pressed="false" class="asc-btn" title="ASCII" type="button"><img alt="" src="assets/hourglass.png"/></button><button aria-pressed="false" data-lang="en" type="button">EN</button><button aria-pressed="false" data-lang="it" type="button">IT</button></div></header>
 
 <main>
 <!-- ========== HOME ========== -->
@@ -1622,4 +1647,58 @@ setLanguage(savedLanguage||(navigator.language.toLowerCase().startsWith('it')?'i
 </div>
 
 
+<script>
+/* Estetica ASCII: la clessidra in alto trasforma immagini e video in caratteri */
+(function(){
+  const RAMP=' .`:-=+*cox#%&@';
+  const btn=document.querySelector('.asc-btn'); if(!btn) return;
+  const items=new Map(); let on=false, ratio=.4, io=null, ro=null, timer=0;
+  const cv=document.createElement('canvas'), cx=cv.getContext('2d',{willReadFrequently:true});
+  function measure(){ const s=document.createElement('span'); s.textContent='MMMMMMMMMM'; s.style.cssText='position:absolute;visibility:hidden;font:100px/1 VT323,monospace;white-space:pre'; document.body.appendChild(s); ratio=s.getBoundingClientRect().width/1000||.4; s.remove(); }
+  function srcs(){ return document.querySelectorAll('.view img:not(.hg img):not([src$=".png"][width="1"]), .view video'); }
+  function skip(el){ return el.closest('.ab-index, .asc-btn, .ab-toggle, .snake-layer') || /hourglass|ship\.png/.test(el.currentSrc||el.src||''); }
+  function draw(it){
+    const el=it.el, w=el.offsetWidth, h=el.offsetHeight; if(w<8||h<8) return false;
+    const vid=el.tagName==='VIDEO'; const iw=vid?el.videoWidth:el.naturalWidth, ih=vid?el.videoHeight:el.naturalHeight;
+    if(!iw||!ih||(vid&&el.readyState<2)||(!vid&&!el.complete)) return false;
+    const cols=Math.max(18,Math.min(150,Math.round(w/7))), fs=w/(cols*ratio), rows=Math.max(4,Math.floor(h/fs));
+    const p=it.pre; p.style.left=el.offsetLeft+'px'; p.style.top=el.offsetTop+'px'; p.style.width=w+'px'; p.style.height=h+'px'; p.style.fontSize=fs+'px'; p.style.lineHeight=(h/rows)+'px';
+    cv.width=cols; cv.height=rows; cx.fillStyle='#f5f3ee'; cx.fillRect(0,0,cols,rows);
+    const cs=getComputedStyle(el), fit=cs.objectFit;
+    try{
+      if(fit==='contain'){ const sc=Math.min(w/iw,h/ih), dw=iw*sc*cols/w, dh=ih*sc*rows/h; cx.drawImage(el,(cols-dw)/2,(rows-dh)/2,dw,dh); }
+      else if(fit==='cover'){ const sc=Math.max(w/iw,h/ih), sw=w/sc, sh=h/sc; const pos=(cs.objectPosition||'50% 50%').split(' ').map(v=>parseFloat(v)/100); const ox=isNaN(pos[0])?.5:pos[0], oy=isNaN(pos[1])?.5:pos[1]; cx.drawImage(el,(iw-sw)*ox,(ih-sh)*oy,sw,sh,0,0,cols,rows); }
+      else cx.drawImage(el,0,0,cols,rows);
+      const d=cx.getImageData(0,0,cols,rows).data; let out='', n=RAMP.length-1;
+      for(let y=0;y<rows;y++){ for(let x=0;x<cols;x++){ const i=(y*cols+x)*4; const l=(.2126*d[i]+.7152*d[i+1]+.0722*d[i+2])/255; out+=RAMP[Math.round((1-l)*n)]; } out+='\n'; }
+      p.textContent=out;
+    }catch(e){ return false; }
+    it.done=true; return true;
+  }
+  function sync(it){ const el=it.el, par=el.parentElement; const group=par&&par.querySelector(':scope>.on'); it.pre.style.opacity=(!group||el.classList.contains('on'))?'':'0'; }
+  function attach(el){
+    if(items.has(el)||skip(el)) return; const par=el.parentElement; if(!par) return;
+    if(getComputedStyle(par).position==='static') par.style.position='relative';
+    const pre=document.createElement('pre'); pre.className='asc-pre'; pre.setAttribute('aria-hidden','true'); el.after(pre); el.classList.add('asc-src');
+    const it={el,pre,vis:false,done:false}; items.set(el,it);
+    el.addEventListener(el.tagName==='VIDEO'?'loadeddata':'load',()=>{ if(on&&it.vis) draw(it); });
+    new MutationObserver(()=>sync(it)).observe(el,{attributes:true,attributeFilter:['class']}); sync(it);
+    io.observe(el); ro.observe(el);
+  }
+  function tick(){ if(!on) return; items.forEach(it=>{ if(it.vis&&(it.el.tagName==='VIDEO'?!it.el.paused||!it.done:!it.done)) draw(it); }); timer=setTimeout(tick,140); }
+  function start(){
+    if(!io){ io=new IntersectionObserver(es=>es.forEach(e=>{ const it=items.get(e.target); if(it){ it.vis=e.isIntersecting; if(it.vis) draw(it); } }),{rootMargin:'400px 0px'});
+      ro=new ResizeObserver(es=>es.forEach(e=>{ const it=items.get(e.target); if(it&&it.vis){ it.done=false; } })); }
+    srcs().forEach(attach);
+    document.querySelectorAll('.view *').forEach(el=>{ const c=getComputedStyle(el); if((parseFloat(c.borderTopWidth)>0&&c.borderTopStyle==='solid')||(parseFloat(c.borderBottomWidth)>0&&c.borderBottomStyle==='solid')) el.classList.add('asc-dash'); });
+    clearTimeout(timer); tick();
+  }
+  function set(v){ on=v; document.body.classList.toggle('ascii',on); btn.setAttribute('aria-pressed',on); try{localStorage.setItem('portfolio-ascii',on?'1':'0')}catch(e){}
+    if(on){ (document.fonts&&document.fonts.load?document.fonts.load('20px VT323'):Promise.resolve()).catch(()=>{}).then(()=>{ measure(); items.forEach(it=>it.done=false); start(); }); } else clearTimeout(timer); }
+  btn.addEventListener('click',()=>set(!on));
+  addEventListener('hashchange',()=>{ if(on) setTimeout(()=>{ items.forEach(it=>it.done=false); start(); },120); });
+  let saved=null; try{saved=localStorage.getItem('portfolio-ascii')}catch(e){}
+  if(saved==='1') set(true);
+})();
+</script>
 </body></html>
